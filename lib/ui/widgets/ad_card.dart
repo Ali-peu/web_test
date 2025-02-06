@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:web_test/ui/widgets/app_ad_card.dart';
 
 class AdCard extends StatelessWidget {
   const AdCard({super.key});
@@ -34,9 +33,8 @@ class AdCard extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(15),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.45,
-        width: MediaQuery.of(context).size.width * 0.28,
         color: Colors.white,
+        margin: EdgeInsets.only(left: 8, top: 8),
         child: Stack(
           children: [
             Align(
@@ -60,9 +58,20 @@ class AdCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Скачайте приложение',
-                    style: Theme.of(context).textTheme.displayMedium,
+                  Row(
+                    children: [
+                      Text(
+                        'Скачайте',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(color: Colors.red),
+                      ),
+                      Text(
+                        ' приложение',
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                    ],
                   ),
                   Row(
                     spacing: 10,
@@ -72,7 +81,7 @@ class AdCard extends StatelessWidget {
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
                       Transform.rotate(
-                        angle: -0.1,
+                        angle: -0.05,
                         child: Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(

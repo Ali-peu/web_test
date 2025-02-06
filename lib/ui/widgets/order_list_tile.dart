@@ -25,9 +25,11 @@ class OrderListTile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisAlignment:
           children: [
+            SizedBox(width: 10),
             Text('Абрикос', style: Theme.of(context).textTheme.bodySmall),
+            Spacer(),
             Row(
               spacing: 40,
               children: [
@@ -35,6 +37,7 @@ class OrderListTile extends StatelessWidget {
                 subText(context, name: 'Сумма ', value: '1 800 ₸'),
               ],
             ),
+            SizedBox(width: 10)
           ],
         ),
       ),
