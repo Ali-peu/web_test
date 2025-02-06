@@ -22,4 +22,5 @@ flutter:
 
   assets:
     - assets/promotional_item.png
+    - assets/logo.png
     - assets/app_design/
