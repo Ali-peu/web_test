@@ -42,7 +42,7 @@ class PromotionalItem extends StatelessWidget {
       children: [
         if (productModel.images.isNotEmpty)
           Image.network(
-            "https://api.allorigins.win/get?url=${productModel.images}",
+            "https://cors-anywhere.herokuapp.com/${productModel.images}",
             loadingBuilder: (context, child, loadingProgress) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
