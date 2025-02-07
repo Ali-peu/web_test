@@ -6,15 +6,18 @@ class OrderListTile extends StatelessWidget {
 
   Widget subText(BuildContext context,
       {required String name, required String value}) {
-    return Row(
-      children: [
-        Text(name,
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(color: Color.fromRGBO(255, 255, 255, 0.47))),
-        Text(value, style: Theme.of(context).textTheme.bodyMedium),
-      ],
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+              text: name,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall
+                  ?.copyWith(color: Color.fromRGBO(255, 255, 255, 0.47))),
+          TextSpan(text: value, style: Theme.of(context).textTheme.bodyMedium),
+        ],
+      ),
     );
   }
 
@@ -23,12 +26,11 @@ class OrderListTile extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(color: backgroundColor),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
+        padding: const EdgeInsets.fromLTRB(27, 8, 34, 9.83),
         child: Row(
           // mainAxisAlignment:
           children: [
-            SizedBox(width: 10),
-            Text('Абрикос', style: Theme.of(context).textTheme.bodySmall),
+            Text('Абрикос', style: Theme.of(context).textTheme.headlineSmall),
             Spacer(),
             Row(
               spacing: 40,
@@ -37,7 +39,6 @@ class OrderListTile extends StatelessWidget {
                 subText(context, name: 'Сумма ', value: '1 800 ₸'),
               ],
             ),
-            SizedBox(width: 10)
           ],
         ),
       ),

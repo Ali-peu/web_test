@@ -11,11 +11,15 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  dio: ^5.8.0+1
+  provider: ^6.1.2
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  
 
 flutter:
   uses-material-design: true
@@ -23,4 +27,14 @@ flutter:
   assets:
     - assets/promotional_item.png
     - assets/logo.png
+    - assets/product_placeholder.png
     - assets/app_design/
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: font/Inter_18pt-Bold.ttf
+          weight: 500
+        - asset: font/Inter_18pt-ExtraBold.ttf
+          weight: 600
+        - asset: font/Inter_18pt-ExtraLight.ttf
+          weight: 100
