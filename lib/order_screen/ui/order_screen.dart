@@ -15,100 +15,6 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Color.fromRGBO(238, 238, 238, 1),
-        body: Consumer<OrderScreenViewModel>(builder: (context, value, child) {
-          if (value.showError) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text('Что-то пошло не так')));
-              value.showError = false;
-            });
-          }
-          return Row(
-            children: [
-              leftSide(context),
-              rightSide(context),
-            ],
-          );
-        }));
-  }
-
-  Widget headlineText(BuildContext context, {required String value}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Text(value, style: Theme.of(context).textTheme.displayMedium),
-    );
-  }
-
-  Widget rightSide(BuildContext context) {
-    return Consumer<OrderScreenViewModel>(builder: (context, value, child) {
-      return Container(
-        width: MediaQuery.of(context).size.width * 0.65,
-        decoration: BoxDecoration(color: Color.fromRGBO(238, 238, 238, 1)),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              headlineText(
-                context,
-                value: 'Система лояльности',
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 15),
-                child: Row(
-                  children: [
-                    AppAdCard(child: AdCard()),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: AppAdCard(
-                          child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 10),
-                            Text(
-                              'Отсканируйте QR код',
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                            SizedBox(height: 20),
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.32,
-                              width: MediaQuery.of(context).size.width * 0.18,
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(231, 231, 231, 1),
-                                  borderRadius: BorderRadius.circular(15)),
-                            )
-                          ],
-                        ),
-                      )),
-                    ),
-                  ],
-                ),
-              ),
-              headlineText(context, value: 'Акционные товары'),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.33,
-                child: value.promotionalProducts.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: value.promotionalProducts.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return PromotionalItem(
-                              productModel: value.promotionalProducts[index]);
-                        })
-                    : SizedBox(),
-              )
-            ],
-          ),
-        ),
-      );
-    });
-  }
-
   Widget leftSide(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.35,
@@ -160,5 +66,108 @@ class _OrderScreenState extends State<OrderScreen> {
         ),
       ),
     );
+  }
+
+  SizedBox promotionalItemList(
+      BuildContext context, OrderScreenViewModel value) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.33,
+      child: value.promotionalProducts.isNotEmpty
+          ? ListView.builder(
+              itemCount: value.promotionalProducts.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return PromotionalItem(
+                    productModel: value.promotionalProducts[index]);
+              })
+          : SizedBox(),
+    );
+  }
+
+  Widget headlineText(BuildContext context, {required String value}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(value, style: Theme.of(context).textTheme.displayMedium),
+    );
+  }
+
+  Padding rowOfCardsAdAndQR(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 15),
+      child: Row(
+        children: [
+          AppAdCard(child: AdCard()),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: AppAdCard(
+                child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  Text(
+                    'Отсканируйте QR код',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.32,
+                    width: MediaQuery.of(context).size.width * 0.18,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(231, 231, 231, 1),
+                        borderRadius: BorderRadius.circular(15)),
+                  )
+                ],
+              ),
+            )),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget rightSide(BuildContext context) {
+    return Consumer<OrderScreenViewModel>(builder: (context, value, child) {
+      return Container(
+        width: MediaQuery.of(context).size.width * 0.65,
+        decoration: BoxDecoration(color: Color.fromRGBO(238, 238, 238, 1)),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              headlineText(
+                context,
+                value: 'Система лояльности',
+              ),
+              rowOfCardsAdAndQR(context),
+              headlineText(context, value: 'Акционные товары'),
+              promotionalItemList(context, value)
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Color.fromRGBO(238, 238, 238, 1),
+        body: Consumer<OrderScreenViewModel>(builder: (context, value, child) {
+          if (value.showError) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Что-то пошло не так')));
+              value.showError = false;
+            });
+          }
+          return Row(
+            children: [
+              leftSide(context),
+              rightSide(context),
+            ],
+          );
+        }));
   }
 }
